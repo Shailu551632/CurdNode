@@ -3,6 +3,11 @@ const validator = require('validator');
 
 
 const EmpSchema = new mongoose.Schema({
+
+    Emp_ID : {
+        type:Number
+    },
+
     name : {
         type:String
     },
@@ -11,9 +16,7 @@ const EmpSchema = new mongoose.Schema({
         type:Number
     },
 
-    Department : {
-        type : String
-    }
+    
 })
 
 
