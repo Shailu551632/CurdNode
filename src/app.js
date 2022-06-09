@@ -25,24 +25,3 @@ app.listen(port, () => {
 
 
 
-Employee.aggregate([
-    {
-      $lookup: {
-        from: "admin",
-        localField: "Emp_ID",
-        foreignField: "Admin_ID",
-        as: "department",
-      },
-    },
-  
-
-    {
-      $unwind: "$department",
-    },
-  ])
-    .then((result) => {
-      console.log(result);
-    })
-    .catch((error) => {
-      console.log(error);
-    });

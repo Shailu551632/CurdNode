@@ -1,6 +1,9 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const router = require('express').Router();
 const Employee = require('../models/empSchama');
+
+const admin = require('../models/adminSch');
 
 
 
@@ -56,6 +59,35 @@ router.delete('/employee/:id', async(req, res) => {
     } catch (error) {
         res.send(error);
     }
+});
+
+
+
+// employee Aggregate
+
+router.get('/employee/agg', (req, res) => {
+
+	Employee.aggregate([
+        {
+          $lookup: {
+            from: "admins",
+            localField: "Emp_ID",
+            foreignField: "Admin_ID",
+            as: "department",
+          },
+        },
+      
+    
+        {
+          $unwind: "$department",
+        },
+      ])
+        .then((result) => {
+          res.send(result);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
 });
 
 
